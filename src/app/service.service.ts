@@ -96,6 +96,11 @@ export class ServiceService {
       headers: this.getHeader(),
     });
   }
+  adminApi(data:any){
+     return this.http.post<{responseData:any,alldata:any}>(`${this.url}/admin-dashboard`,data, {
+      headers: this.getHeader(),
+    });
+  }
   getOrders() {
     return this.http.get<{ orderData: any }>(`${this.url}/get-orders`, {
       headers: this.getHeader(),
