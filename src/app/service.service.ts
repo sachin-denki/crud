@@ -85,7 +85,7 @@ export class ServiceService {
   }
 
   getMainProducts() {
-    return this.http.get<{ allProducts: any }>(`${this.url}/get-main-products`);
+    return this.http.get<{ allProducts: any }>(`${this.url}/get-list-data`);
   }
 
   createProductList(data: any) {
