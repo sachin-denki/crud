@@ -1,0 +1,66 @@
+
+
+
+<!-- <div class="userchart">
+    <select class="form-select" #item (change)="onSelected(item)" style="margin-bottom: 100px">
+      <option selected >SELECT</option>
+      <option *ngFor="let item of groupDates">{{item.lable}}</option>
+    </select>
+    <c-chart [data]="showMonth" type="doughnut"></c-chart>
+</div>
+<div> -->
+<div class="userchart">
+<p-dropdown [options]="groupDates" [(ngModel)]="filters.selectedDates" placeholder="Select a date" [group]="true"
+  (onChange)="Fetchdetails()">
+  <ng-template let -group pTemplate="group">
+  </ng-template>
+</p-dropdown>
+
+  <c-chart [data]="data" type="bar"></c-chart>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <c-chart [data]="data" type="bar"></c-chart> -->
+<!-- <div class="main">
+  
+<mat-card  class="userchart">
+ 
+  <c-chart [data]="data" type="bar"></c-chart>
+ <h6 style="text-align: center;">User Registerd - Data</h6>
+</div> -->
+
+<!-- <div  class="userchart">
+ 
+<div>
+  <c-chart
+  [data]="yearData"
+  type="doughnut">
+</c-chart>
+</div>
+ <h6 style="text-align: center;">Current Year - Data</h6>
+</div> -->
+<!-- <div class="form-select" [options]="groupDates" [(ngModel)]="filters" [group]="true" (onChange)="onSelectedd()" style="margin-bottom: 100px">
+     <ng-template let-groups Template="groups">
+      <span>{{groups.lable}}</span>
+     </ng-template>
+    </div> -->
+
+<!-- <div class="userchart">
+   <select class="form-select" #item (change)="onSelected(item.value)" style="margin-bottom: 100px">
+      <option selected>SELECT</option>
+      <option value="today">Today</option>
+      <option value="this-week">this week</option>
+      <option value="last-week">last week</option>
+      <option value="quarter">quarter</option>
+      <option value="year">this year</option>
+    </select>
+    <c-chart [data]="showWeek" type="doughnut"></c-chart>
+</div> -->
+<!-- </div> -->

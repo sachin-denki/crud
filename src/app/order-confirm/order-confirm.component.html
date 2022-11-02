@@ -1,0 +1,96 @@
+<body style="background-color: #eee">
+  <div class="container">
+    <div class="card">
+      <h6 class="main">
+        CONFIRM ORDERS <i class="fa-solid fa-square-check"></i>
+      </h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">DATE</th>
+            <th scope="col">STATUS</th>
+            <th scope="col">PRODUCTS</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of orderlist">
+          <tr>
+            <th scope="row">{{ item.id }}</th>
+            <td>{{ item.total | currency: "INR" }}</td>
+            <td>{{ item.updatedAt | date: "medium" }}</td>
+            <td>
+              <b>{{ item.status | uppercase }}</b>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="getDetails(item.id)"
+              >
+                VIEW
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <h5>
+        TOTAL:<b> {{ total | currency: "INR" }}</b>
+      </h5>
+      <h6>
+        ORDER PLACED :<u> {{ orderdAt | date: "medium" }}</u>
+      </h6> -->
+      <h6 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+        DETAILS: <u>ODERS WILL BE DELEVIRED WITHN <b>7 WORKING </b> DAYS</u>
+      </h6>
+    </div>
+  </div>
+</body>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title fs-5" id="exampleModalLabel">
+          <div *ngFor="let item of single">
+            <h3>
+              NAME: <b>{{ item.productName | uppercase }}</b>
+            </h3>
+            <h3>
+              QTY: <b>{{ item.quantity }}</b>
+            </h3>
+            <h3>
+              PRICE: <b>{{ item.price | currency: "INR" }}</b>
+            </h3>
+            <hr />
+            <br />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          type="button"
+          data-bs-dismiss="modal"
+        >
+          CLOSE
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

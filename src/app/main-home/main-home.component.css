@@ -1,0 +1,215 @@
+/* .back {
+  padding: 0;
+  background-image: url(https://img.freepik.com/free-photo/woman-holding-various-shopping-bags-copy-space_23-2148674122.jpg?w=1380&t=st=1665825776~exp=1665826376~hmac=10bc5b73a3857799453e44a277b41c72089849fe5567fe01920fc5e966104d89);
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  background-position: center;
+} */
+
+body {
+  background-color: #eee;
+  padding-top: 50px;
+  height: 100vh;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.card > div > a:hover {
+  background-color: #40826d;
+  color: #fff;
+}
+.search {
+  display: flex;
+  width: 70%;
+  padding-left: 500px;
+  margin-bottom: 80px;
+}
+.search > input {
+  margin-right: 10px;
+  width: 70%;
+  border: none;
+  border: 1px solid #40826d;
+}
+
+select {
+  border: none;
+  border: 1px solid #40826d;
+}
+
+.search > button {
+  border: none;
+  color: #40826d;
+  font-weight: bold;
+  border: 1px solid #40826d;
+}
+
+.container .card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  color: black;
+  margin: 50px;
+  border: none;
+  border: 2px solid #40826d;
+}
+
+.select {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  width: 70%;
+  margin-left: 350px;
+  /* align-items: center; */
+  /* flex-wrap: wrap; */
+}
+.form-select {
+  width: 10%;
+  margin: 10px 75px 0 75px;
+}
+.container .card img {
+  padding: 15px;
+  width: 100%;
+  height: 200px;
+  border-radius: 25px;
+}
+
+.container .card a {
+  width: 100%;
+}
+#mobilecard .card img {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+#mobilecard .card {
+  color: black;
+  position: relative;
+  width: 200px;
+  height: 400px;
+  margin: 80px;
+  margin-bottom: 0;
+  display: flex;
+  border: none;
+  border: 1px solid black;
+}
+
+#mobilecard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+h1,
+h3,
+h2,
+h4,
+h6,
+h3 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#bb {
+  background-color: #fff;
+}
+
+#gobtn {
+  background-color: #40826d;
+  color: #fff;
+}
+.head {
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+
+.head > img {
+  width: 100%;
+  padding: 80px;
+}
+.head > form {
+  width: 100%;
+  padding: 80px;
+}
+
+.head > form > mat-form-field {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.head form button,
+.log form button {
+  width: 100%;
+  background-color: #40826d;
+  margin-top: 60px;
+  margin-bottom: 50px;
+}
+#log > mat-form-field,
+#log > button {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 70px;
+}
+.sticky {
+  position: fixed;
+  overflow: hidden;
+}
+/* 
+h1,
+h3,
+h2,
+h4,
+h6,
+h3 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#mat,
+mat-icon {
+  height: 90px;
+  width: 90px;
+}
+
+.sticky {
+  position: fixed;
+  overflow: hidden;
+}
+.head {
+  width: 50%;
+  margin: 180px auto;
+}
+
+.log {
+  width: 40%;
+  margin: 285px auto;
+}
+
+.head form {
+  padding: 50px;
+}
+mat-form-field {
+  width: 100%;
+}
+
+#login {
+  width: 100%;
+}
+
+#cart {
+  margin-top: 40px;
+  margin-left: 5px;
+} */

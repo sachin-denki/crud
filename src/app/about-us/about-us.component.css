@@ -1,0 +1,33 @@
+
+.about{
+  display: flex;
+	cursor: pointer;
+	background-color:aliceblue;
+	color: black;
+  font-weight: bold;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
+.about h1 {
+	padding: 10px 0;
+	margin-bottom: 20px;
+}
+.about h2 {
+	opacity: .8;
+}
+.about span {
+	display: block;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	margin:auto;
+	border-radius:50%;  
+	font-size: 40px;
+	color: #FFFFFF;
+  
+	opacity: 0.7;
+	background-color: black;
+
+
+
+}

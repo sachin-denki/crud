@@ -1,0 +1,17 @@
+
+#card{
+  height: 50vh;
+  width: 50%;
+  border: none;
+  margin-left: 400px;
+}
+#card button {
+  color: #40826d;
+  border: 1px solid #40826d;
+  width: 30%;
+  
+}
+#table{
+  overflow: auto;
+  height: 15vh;
+}

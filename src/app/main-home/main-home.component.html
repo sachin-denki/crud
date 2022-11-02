@@ -1,0 +1,283 @@
+<body>
+  <div class="head" *ngIf="isShow">
+    <div class="img">
+      <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+        alt=""
+      />
+    </div>
+
+    <form (submit)="onSignup(SignupForm)" #SignupForm="ngForm" *ngIf="isSignup">
+      <h3>SIGN-UP</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>NAME</mat-label>
+        <input
+          matInput
+          type="name"
+          name="name"
+          ngModel
+          placeholder="name"
+          #nameInput="ngModel"
+          required
+        />
+        <mat-error *ngIf="nameInput.invalid"
+          >please enter a valid name</mat-error
+        > </mat-form-field
+      ><br />
+
+      <mat-form-field appearance="outline">
+        <mat-label>EMAIL</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          ngModel
+          placeholder="email"
+          #emailInput="ngModel"
+          required
+          email
+        />
+        <mat-error *ngIf="emailInput.invalid"
+          >please enter a valid email</mat-error
+        > </mat-form-field
+      ><br />
+
+      <mat-form-field appearance="outline">
+        <mat-label>MOBILE</mat-label>
+        <input
+          matInput
+          type="text"
+          name="mobile"
+          ngModel
+          placeholder="mobile"
+          #mobileInput="ngModel"
+          required
+        /> </mat-form-field
+      ><br />
+
+      <mat-form-field appearance="outline">
+        <mat-label>PASSWORD</mat-label>
+        <input
+          type="password"
+          name="password"
+          ngModel
+          matInput
+          placeholder="password"
+          #passwordInput="ngModel"
+          required
+        />
+        <mat-error *ngIf="passwordInput.invalid"
+          >please enter a valid password</mat-error
+        > </mat-form-field
+      ><br />
+      <button mat-raised-button type="submit" color="primary">REGISTER</button>
+      <h6 style="font-weight: bold">
+        ALREADY REGISTERED THEN<a mat-button (click)="onDirect()">
+          CLICK HERE
+        </a>
+      </h6>
+    </form>
+
+    <form
+      id="log"
+      (submit)="onLogin(LoginForm)"
+      #LoginForm="ngForm"
+      *ngIf="isLoging"
+    >
+      <h3>LOGIN</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          ngModel
+          placeholder="email"
+          #emailInput="ngModel"
+          required
+        /> </mat-form-field
+      ><br />
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          name="password"
+          ngModel
+          matInput
+          placeholder="password"
+          #passwordInput="ngModel"
+          required
+        /> </mat-form-field
+      ><br />
+      <button id="login" mat-raised-button color="accent" type="submit">
+        LOGIN
+      </button>
+    </form>
+  </div>
+
+  <div class="search" *ngIf="showSearch">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      class="form-control"
+      placeholder="Search By Name"
+    />
+    <button
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      (click)="getSearch(searchText)"
+    >
+      SEARCH
+    </button>
+  </div>
+  <div class="select" *ngIf="isSearching">
+    <select
+      class="form-select"
+      (click)="getMobiles()"
+      #item
+      (change)="onSelected(item.value)"
+    >
+      <option selected>BRANDS</option>
+      <option value="APPLE">APPLE</option>
+      <option value="IQ">IQ</option>
+      <option value="LENOVO">LENOVO</option>
+      <option value="ONE PLUS">ONE PLUS</option>
+      <option value="OPPO">OPPO</option>
+      <option value="REALME">REALME</option>
+      <option value="REDMI">REDMI</option>
+      <option value="SAMSUNG">SAMSUNG</option>
+      <option value="VIVO">VIVO</option>
+    </select>
+    <select class="form-select" #color (change)="onColorSelected(color.value)">
+      <option selected>COLORS</option>
+      <option value="BLACK">BLACK</option>
+      <option value="WHITE">WHITE</option>
+      <option value="RED">RED</option>
+      <option value="GREEN">GREEN</option>
+    </select>
+    <select
+      class="form-select"
+      #amount
+      (change)="onamountSelected(amount.value)"
+    >
+      <option selected>PRICE</option>
+      <option value="5000">5000</option>
+      <option value="8000">8000</option>
+      <option value="10000">10000</option>
+    </select>
+  </div>
+
+  <div class="container" *ngIf="allitems">
+    <div id="cc" class="card" style="width: 18rem">
+      <img
+        src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+        alt="..."
+      />
+      <div class="card-body">
+        <h3 class="card-title">MOBILE</h3>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a class="btn" (click)="getMobileItems()">VIEW</a>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <img
+        src="https://images.unsplash.com/photo-1552975084-6e027cd345c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+        alt="..."
+      />
+      <div class="card-body">
+        <h3 class="card-title">TV</h3>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a class="btn">VIEW</a>
+      </div>
+    </div>
+
+    <div class="card" style="width: 18rem">
+      <img
+        src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+        alt="..."
+      />
+      <div class="card-body">
+        <h3 class="card-title">GROCERY</h3>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a class="btn">VIEW</a>
+      </div>
+    </div>
+  </div>
+ 
+  <pre
+    *ngIf="onList"
+    class="sticky"
+    (click)="reDirect()"
+  ><button id="mat"  class="fixed-top"  mat-fab style="background-color: black; color: white;"><b>CART</b>{{qrt.length}}</button></pre>
+  <div *ngIf="mobileitems" id="mobilecard">
+    <div class="card" style="width: 18rem" *ngFor="let item of mobile">
+      <img src="../../assets/images/{{ item.image }}" alt="..." />
+      <div id="cartitmes" class="card-body">
+        <h2 class="card-title">{{ item.name }}</h2>
+        <h6>{{ item.color }}</h6>
+        <h4>{{ item.price | currency: "INR" }}</h4>
+        <a
+          id="cart"
+          type="button"
+          class="btn col-sm-4 col-sm-offset-2 btn-lg"
+          style="
+            background-color: #ff9f00;
+            color: #fff;
+            font-size: 1em;
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 10px;
+          "
+          (click)="addToCart(item)"
+          >ADD CART
+        </a>
+        <br />
+        <a
+          id="cart"
+          type="button"
+          class="btn col-sm-4 col-sm-offset-1 btn-lg"
+          style="
+            background-color: #fb641b;
+            color: #fff;
+            font-size: 1em;
+            width: 100%;
+          "
+          (click)="onBuy()"
+          >BUY NOW</a
+        >
+      </div>
+    </div>
+  </div>
+  <div id="bb" class="container">
+    <div *ngFor="let button of buttons">
+      <button
+        type="submit"
+        class="btn btn-light"
+        (click)="onGetButtonId(button?.id)"
+      >
+        {{ button?.id }}
+      </button>
+    </div>
+  </div>
+  <h1
+    *ngIf="mobileitems"
+    id="gobtn"
+    type="button"
+    class="btn btn-light"
+    (click)="goBack()"
+  >
+    BACK
+  </h1>
+
+  <!-- <button class="btn" (click)="goBack()">GO BACK</button> -->
+</body>

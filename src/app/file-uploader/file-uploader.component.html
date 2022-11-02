@@ -1,0 +1,22 @@
+<form (submit)="onSignup(SignupForm)" #SignupForm="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      type="text"
+      name="name"
+      ngModel
+      matInput
+      placeholder="name"
+      #nameInput="ngModel"
+      required
+    /> </mat-form-field
+  ><br />
+  <input
+    type="file"
+    name="profile"
+    id="file"
+    (change)="onFileChanged($event)"
+  />
+  <br />
+  <button mat-raised-button color="warn" type="submit">REGISTER</button>
+</form>

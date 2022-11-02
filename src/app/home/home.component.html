@@ -1,0 +1,110 @@
+<mat-card class="form">
+  <form (submit)="onAddData(formDetails)" #formDetails="ngForm">
+    <mat-form-field appearance="outline">
+      <mat-label>NAME</mat-label>
+      <input
+        matInput
+        type="text"
+        name="name"
+        [ngModel]="data?.name"
+        ngModel
+        placeholder="name"
+        #NameInput="ngModel"
+      /> </mat-form-field
+    ><br />
+    <mat-form-field appearance="outline">
+      <mat-label>EMAIL</mat-label>
+      <input
+        matInput
+        type="email"
+        name="email"
+        [ngModel]="data?.email"
+        ngModel
+        placeholder="email"
+        #dobInput="ngModel"
+      />
+    </mat-form-field>
+    <br />
+    <button *ngIf="!editMode" mat-raised-button color="primary" type="submit">
+      ADD
+    </button>
+    <button *ngIf="editMode" mat-raised-button color="primary" type="submit">
+      UPDATE
+    </button>
+  </form>
+</mat-card>
+
+<mat-card *ngIf="!editMode">
+  <div class="main">
+    <!-- DROP DOWN SELECT CODE -->
+    <select class="form-select" #teams (change)="onSelected(teams.value)">
+      <option selected>SELECT</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+    </select>
+
+    <!-- SEARCH CODE -->
+    <div class="search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        class="form-control"
+        placeholder="Search By Name"
+      />
+      <button
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        (click)="getSearch(searchText)"
+      >
+        SEARCH
+      </button>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th (click)="sortName($event)">NAME</th>
+        <th>EMAIL</th>
+        <th>OPERATIONS</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of items">
+      <tr>
+        <th scope="row">{{ item.id }}</th>
+        <th>{{ item.name }}</th>
+        <th>{{ item.email }}</th>
+        <th>
+          <button
+            id="bb"
+            class="btn btn-success btn-sm"
+            (click)="onEditData(item.id)"
+          >
+            EDIT
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="onDeleteData(item.id)"
+          >
+            DELETE
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- // PEGINATION CODE -->
+  <div class="bbb" *ngFor="let button of buttons">
+    <button
+      type="submit"
+      class="btn btn-light"
+      (click)="onGetButtonId(button?.id)"
+    >
+      {{ button?.id }}
+    </button>
+  </div>
+</mat-card>

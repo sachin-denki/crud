@@ -1,0 +1,111 @@
+<div
+  style="overflow: hidden"
+  class="container-fluid mt-100"
+  *ngIf="mobile?.length <= 0"
+  style="background-color: #eee; padding-top: 200px"
+>
+  <div class="col-sm-12 empty-cart-cls text-center">
+    <img
+      src="../../assets/images/buket-removebg-preview.png"
+      width="130"
+      height="130"
+      class="img-fluid mb-4 mr-3"
+    />
+    <h3><strong>Your Cart is Empty</strong></h3>
+    <h4>Add something to make me happy :)</h4>
+    <a type="button" href="#" id="bb" data-abc="true">continue shopping</a>
+  </div>
+</div>
+<body *ngIf="isShow">
+  <div id="card" class="card" *ngFor="let item of mobile">
+    <div class="sub-card">
+      <img
+        src="https://images.unsplash.com/photo-1580910051074-3eb694886505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+        alt="..."
+      />
+    </div>
+    <div class="sub" style="padding-top: 50px; padding-left: 10px">
+      <button
+        id="delete"
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        (click)="deleteFromCrat(item)"
+      >
+        <mat-icon>delete</mat-icon></button
+      ><button
+        mat-mini-fab
+        color="accent"
+        aria-label="Example icon button with a plus one icon"
+        (click)="plusItem(item)"
+      >
+        <mat-icon>plus_one</mat-icon>
+      </button>
+    </div>
+    <div class="sub" style="padding-top: 25px">
+      <h6>DETAILS:8 GB RAM</h6>
+      <h6>QTY:{{ item.quantity }}</h6>
+      <h5><i>PRICE:</i>{{ item.price | currency: "INR" }}</h5>
+    </div>
+    <div class="sub" style="padding-top: 3 5px">
+      <h2 class="card-title">{{ item.productName | uppercase }}</h2>
+    </div>
+  </div>
+  <br />
+  <!-- <h1>TOTAL:{{ total | currency: "INR" }}</h1>
+  br
+ -->
+  <br />
+  <button
+    *ngIf="mobile?.length > 0"
+    id="button"
+    mat-raised-button
+    color="primary"
+    (click)="placeOrder()"
+  >
+    PLACE ORDER
+  </button>
+</body>
+
+<div id="tt" style="background-color: #eee" *ngIf="isOrder">
+  <div class="crad" style="background-color: #fff">
+    <h3 style="font-weight: bold; text-align: center"><u>SUMMARY</u></h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">QTY</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mobile">
+          <th scope="row">{{ item.id }}</th>
+          <td>{{ item.productName | uppercase }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price | currency: "INR" }}</td>
+        </tr>
+      </tbody>
+      <h4>TOTAL:{{ total | currency: "INR" }}</h4>
+      <button
+        style="margin-bottom: 10px"
+        type="button"
+        class="btn btn-success"
+        (click)="confirmOrder()"
+      >
+        CONFIRM ORDER
+      </button>
+    </table>
+  </div>
+</div>
+
+<div
+  class="SUCCESS"
+  *ngIf="order"
+  style="background-color: #eee; margin-top: 300px"
+>
+  <h1>YOUR ORDER PLACED SUCCESSFULLY</h1>
+  <br />
+  <i class="fa-10x fa-solid fa-circle-check"></i>
+</div>

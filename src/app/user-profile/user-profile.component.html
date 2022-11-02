@@ -1,0 +1,30 @@
+<div id="main" class="card-body text-center" style="background-color: #dadad8;padding-top: 100px;">
+     <div id="card" style="background-color: aliceblue;padding-top: 10px; border-radius: 10px;">
+      <img src="../.././assets/images/{{user?.profile}}" alt="avatar"class="rounded-circle img-fluid" 
+      style="height: 10vh;width: 100px;background-position:center;" >
+            <h5 class="my-3">{{user?.name | uppercase}}</h5>
+            <p class="text-muted mb-1">{{user?.email}}</p>
+            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <button mat-button (click)="getData()">CHECK ORDER STATUS</button>
+            <hr>
+    <div id="table" >
+       <table class="table" *ngIf="orderlist?.length>0">
+      <thead>
+        <tr>
+         <th scope="col">#</th>
+         <th scope="col">Order-ID</th>
+         <th scope="col">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let item of orderlist">
+         <th scope="row">{{item.id}}</th>
+         <td >{{item.orderNumber}}</td>
+         <td class="table-primary"> {{item.status | uppercase}}</td>
+        </tr>
+     </tbody>
+    </table>
+    </div>
+    <h6 *ngIf="nodata">NO ORDERS FOUND <a href="#">CLICK</a></h6>
+     </div>
+</div>
