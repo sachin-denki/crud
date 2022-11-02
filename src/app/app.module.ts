@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MainHomeComponent } from './main-home/main-home.component';
-import { TvComponent } from './tv/tv.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AddCartComponent } from './add-cart/add-cart.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
@@ -33,7 +32,6 @@ import { DropdownModule } from 'primeng/dropdown';
     HomeComponent,
     NavBarComponent,
     MainHomeComponent,
-    TvComponent,
     AddCartComponent,
     FileUploaderComponent,
     OrderConfirmComponent,

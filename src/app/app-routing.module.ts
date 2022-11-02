@@ -8,7 +8,6 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { MainHomeComponent } from './main-home/main-home.component';
 import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
-import { TvComponent } from './tv/tv.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
