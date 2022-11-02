@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddCartComponent } from './add-cart/add-cart.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
+import { UserComponent } from './user/user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
     AddCartComponent,
     FileUploaderComponent,
     OrderConfirmComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
