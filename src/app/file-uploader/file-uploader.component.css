@@ -1,0 +1,56 @@
+/* #data{
+  margin-top: 80px;
+}
+
+.main {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #40826d;
+  background-color: #40826d;
+  color: aliceblue;
+  padding-top: 10px;
+  border-radius: 30px;
+  
+}
+
+button {
+  width: 100px;
+}
+
+table {
+  counter-reset: orderlist;
+}
+.counterCell:before {
+  content: counter(orderlist);
+  counter-increment: orderlist;
+}
+#btn {
+  color: #40826d;
+  background-color: aliceblue;
+}
+#btn:hover {
+  background-color: #40826d;
+  color: aliceblue;
+}
+
+
+form{
+  width: 50%;
+  margin-top: 50px;
+  margin-left: 500px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 30px;
+}
+form mat-form-field {
+  width: 100%;
+}
+
+#userList{
+  margin-top:80px;
+  width: 100%;
+  margin: 80px;
+} */

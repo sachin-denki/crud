@@ -7,77 +7,57 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./add-cart.component.css'],
 })
 export class AddCartComponent implements OnInit {
-  mobile: any = [];
+  cartData: any = [];
   price!: number;
   total = 0;
-  grandTotal: any;
-  qty = 1;
-  sum: any = [];
   isShow = true;
-  gst!: number;
   order = false;
   isOrder = false;
   constructor(private service: ServiceService) {}
 
   ngOnInit(): void {
-    this.mobile = this.service.cartData;
-    this.finTotal();
+    this.getAllCartItems();
   }
 
-  finTotal() {
-    // this.total = this.mobile?.map((el: { price: any }) => el.price);
+  getAllCartItems() {
     this.service.getCartItems().subscribe((response) => {
-      this.mobile = response.cartData;
-      // console.log(this.mobile[0].price);
-      this.mobile.forEach(
+      this.cartData = response.cartData;
+      this.cartData.forEach(
         (el: { price: any }) => (this.total = el.price + this.total)
       );
-      // this.total = this.sum.reduce(
-      //   (partialSum: any, a: any) => partialSum + a,
-      //   0
-      // );
     });
-    // this.grandTotal =
-    //   this.mobile.length <= 0
-    //     ? 0
-    //     : this.total?.reduce(
-    //         (accumulator: any, currentValue: any) => accumulator + currentValue
-    //       );
-    // console.log(this.mobile);
   }
 
   deleteFromCrat(value: any) {
-    console.log(value.productId);
-    // this.mobile = this.mobile.filter((item: any) => item.id !== value.id);
-    // this.finTotal();
-    let createData = {
-      productId: value.productId,
+    let deleteData = {
+      productId: value,
     };
-    this.service.removeCartItem(createData).subscribe(() => {
+    console.log(value);
+    
+    this.service.removeCartItem(deleteData).subscribe(() => {
       this.total = 0;
-      this.finTotal();
+      this.getAllCartItems();
     });
   }
 
-  plusItem(value: any) {
-    console.log(value.productId);
-
+  plusItem(id: any) {
     let createData = {
-      productId: value.productId,
+      productId: id,
     };
-    this.service.addToCart(createData).subscribe(() => {
+    this.service.addToCart(createData).subscribe((response) => {
       this.total = 0;
-      this.finTotal();
+      console.log(response.quantity);
+      this.service.headerClicked.next(response.quantity)
+      this.getAllCartItems();
     });
   }
 
   placeOrder() {
-    this.gst = 500;
     this.isShow = false;
     this.isOrder = true;
-    this.mobile = '';
+    this.cartData = '';
     this.total = 0;
-    this.finTotal();
+    this.getAllCartItems();
   }
 
   confirmOrder() {
@@ -85,7 +65,6 @@ export class AddCartComponent implements OnInit {
       this.order = true;
       this.isShow = false;
       this.isOrder = false;
-      
     });
   }
 }

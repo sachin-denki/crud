@@ -1,28 +1,4 @@
-<!-- <div id="navbar" class="navbar sticky-top shadow-lg">
-  <div class="container">
-    <i routerLink="" class="fa-5x fa-solid fa-meteor">
-      <strong>SHOP-TIC</strong>
-    </i>
 
-    <ul id="menu" class="d-flex">
-      <li><a routerLink="">HOME</a></li>
-      <li><a>ABOUT</a></li>
-      <li><a routerLink="confirm-order">MY ORDERS</a></li> -->
-<!-- <li><a routerLink="/add-cart"><i class="fa-3x fa-solid fa-cart-shopping"></i></a></li> -->
-<!-- </ul> -->
-
-<!-- <i routerLink="/add-cart" class="fa-3x fa-solid fa-cart-shopping"></i> -->
-<!-- <form class="d-flex" role="search">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        accept=".csv"
-      />
-      <button class="btn btn-outline-dark" type="submit">Search</button>
-    </form> -->
-<!-- </div>
-</div> -->
 <nav
   class="navbar navbar-expand-lg navbar-dark sticky-top"
   style="background-color: #40826d"
@@ -53,65 +29,39 @@
           <a class="nav-link" routerLink="confirm-order">ORDERS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">ABOUT</a>
+          <a class="nav-link"  routerLink="about">ABOUT</a>
+        </li>
+        <li class="nav-item" style="margin-right: 300px;">
+          <a class="nav-link" routerLink="contact">CONTACT</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="contact">LOGIN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">CONTACT</a>
-        </li>
-      </ul>
+          <a class="nav-link" routerLink="contact">SINGUP</a>
+        </li> -->
+    
+      <i routerLink="/user-profile" class="fa-2x fa-solid fa-user" style="margin-right: 20px; color: aliceblue"></i>
       <i
-        style="margin-right: 20px; color: #fff"
+        style=" color: aliceblue"
         routerLink="/add-cart"
         class="fa-2x fa-solid fa-cart-shopping"
-      ></i>
+      ></i
+      > 
+       <h2 style="margin-right: 10px"></h2>
+      <div style="font-size: 8px;margin-right: 20px;" class="badge bg-danger">{{totalitems}}</div>
+      <h2 style="margin-right: 10px"></h2>
       <i
+      
         (click)="onLogout()"
-        style="margin-right: 20px; color: #fff"
+        style="margin-right: 20px; color: aliceblue"
         class="fa-2x fa-solid fa-right-from-bracket"
       ></i>
-      <!-- <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-light p-2" type="submit">Search</button>
-      </form> -->
+        </ul>
     </div>
+
+    <!-- <span class="link"><i class="fa-2x fa-solid fa-user" style=" color: aliceblue"></i> <br></span>  <span class="someicon">
+      
+     </span> -->
   </div>
 </nav>
-<!-- <div class="container-fluid">
-  <div class="row">
-    
-    <img src="" alt="" />
-    <div class="col-sm-5">
-      <div class="thumbnail">
-        <img
-          src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png"
-          class="img-responsive"
-          alt=""
-        />
-
-        <div class="caption">
-          <div class="row buttons">
-            <button
-              class="btn col-sm-4 col-sm-offset-2 btn-lg"
-              style="background-color: #ff9f00; color: #fff; font-size: 1em"
-            >
-              <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;ADD
-              TO CART
-            </button>
-
-            <button
-              class="btn col-sm-4 col-sm-offset-1 btn-lg"
-              style="background-color: #fb641b; color: #fff; font-size: 1em"
-            >
-              <i class="fa fa-bolt" style="font-size: 1.2em"></i> BUY NOW
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

@@ -9,9 +9,41 @@ import { ServiceService } from '../service.service';
 })
 export class FileUploaderComponent implements OnInit {
   public file: any | File;
+  allUserDetails: any;
+  isAdmin: ((admin: any) => unknown) | undefined;
+  orderlist: any;
+  cartData: any;
+  users: any;
+  totalOrders: any;
+  data:any
   constructor(private service: ServiceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.data =   {
+    labels: ['VueJs', 'EmberJs', 'ReactJs', 'Angular'],
+    datasets: [{
+      backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+      data: [40, 20, 80, 10]
+    }]
+    
+  }
+this.getData()
+}
+
+  getData() {
+    this.service.getOrders().subscribe((response) => {
+      console.log(response.allData);
+      this.allUserDetails = response.allData
+      this.isAdmin = response.admin
+      this.users = response.usersList
+      console.log(this.users);
+      
+      this.totalOrders = response.totalOrders
+    });
+  }
+
+
+
   onFileChanged(event: any) {
     this.file = event.target.files[0];
     console.log(this.file);

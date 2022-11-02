@@ -9,29 +9,27 @@ import { ServiceService } from '../service.service';
 })
 export class OrderConfirmComponent implements OnInit {
   orderlist: any;
-  data: any;
-  orderdAt: any;
-  total: any;
-  single: any;
+  cartItems: any;
+  cartData: any;
+  isAdmin:any=false
+  allUserDetails: any;
   constructor(private service: ServiceService, public router: Router) {}
 
   ngOnInit(): void {
     this.getData();
   }
+
   getData() {
     this.service.getOrders().subscribe((response) => {
+      console.log(response.allData);
+      this.allUserDetails = response.allData
       this.orderlist = response.orderData;
-      console.log(this.orderlist);
+      this.cartData = response.cartData
     });
   }
-  getDetails(id: any) {
-    console.log(id);
-    let data = {
-      orderId: id,
-    };
-    this.service.getOderData(data).subscribe((response) => {
-      console.log(response.singleData);
-      this.single = response.singleData;
-    });
+
+  getDetails(id:any) {
+    this.getData();
+    this.cartItems = this.cartData.filter((el: any) => el.orderId === id)
   }
 }

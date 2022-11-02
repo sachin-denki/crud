@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServiceService } from '../service.service';
@@ -9,20 +9,20 @@ import { ServiceService } from '../service.service';
   styleUrls: ['./main-home.component.css'],
 })
 export class MainHomeComponent implements OnInit {
+  public file: any | File;
+  @Output() qrt: any = [];
   tvitmes = false;
   allitems = true;
   mobileitems = false;
-  mobile: any;
+  getData: any;
   isLoging = false;
   onGetItem = false;
   isSignup = false;
-  qrt: any = [];
   onList = false;
-  image!: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80';
   mobileStock: any;
   buttons: any = [];
-  i: number | undefined;
-  limit = 2;
+  buttonsNumber!: number;
+  limit = 10;
   currentPage = 1;
   value: any;
   color: any;
@@ -33,6 +33,7 @@ export class MainHomeComponent implements OnInit {
   showSearch = true;
   autheticated!: boolean;
   isShow = false;
+  showDrop!: boolean;
   constructor(private service: ServiceService, public router: Router) {}
 
   ngOnInit(): void {
@@ -40,27 +41,33 @@ export class MainHomeComponent implements OnInit {
     console.log(this.autheticated);
   }
 
-  onSignup(form: NgForm) {
-    console.log(form.value);
+  onFileChanged(event: any) {
+    this.file = event.target.files[0];
+  }
 
+  onSignup(form: NgForm) {
+    const data = new FormData();
+    data.append('image', this.file)
     const authData = {
       name: form.value.name,
       email: form.value.email,
       mobile: form.value.mobile,
       password: form.value.password,
     };
-    console.log(authData);
-
-    this.service.signUp(authData).subscribe(
+     data.append("body", JSON.stringify(authData));
+    this.service.signUp(data).subscribe(
       (response) => {
         form.reset({});
+        let token = response.token;
+        this.service.saveAuthManager(token);
         this.isSignup = false;
         this.autheticated = true;
         this.showSearch = true;
         this.isSearching = false;
         this.isShow = false;
         this.allitems = false;
-        this.getMobileItems();
+        this.getItemsList();
+        this.showDrop = true
       },
       (error): void => {}
     );
@@ -71,10 +78,12 @@ export class MainHomeComponent implements OnInit {
       email: form.value.email,
       password: form.value.password,
     };
-    console.log(loginData);
     this.service.login(loginData).subscribe((response) => {
-      console.log(response.token);
+      if(response.isAdmin){
+         this.router.navigate(['admin']);
+      }
       let token = response.token;
+      this.service.userData = response.user
       this.isLoging = false;
       this.allitems = false;
       this.service.saveAuthManager(token);
@@ -82,11 +91,15 @@ export class MainHomeComponent implements OnInit {
       this.showSearch = true;
       this.isSearching = false;
       this.isShow = false;
-      this.getMobileItems();
-    });
+      this.showDrop = true
+      this.getItemsList();
+    },
+    (error): void => {});
   }
 
   addToCart(id: any) {
+    console.log(id);
+    
     if (!this.autheticated) {
       this.showSearch = false;
       this.mobileitems = false;
@@ -94,43 +107,38 @@ export class MainHomeComponent implements OnInit {
       this.allitems = false;
       this.isSignup = true;
       this.isShow = true;
-
-      console.log('PLEASE REGISTER');
     }
     if (this.autheticated) {
-      // let data = this.mobile.filter((el: any) => el.id === id);
-      console.log(id);
       let createData = {
         productName: id.name,
         productId: id.productId,
         price: id.price,
       };
-      this.service.addToCart(createData).subscribe(() => {});
-      this.onList = true;
-      this.qrt.push('');
-      console.log(this.qrt);
+      this.service.addToCart(createData).subscribe((response) => {
+        console.log(response.quantity);
+        this.service.headerClicked.next(response.quantity)
+        this.onList = true;
+      });
+      
     }
   }
-  buyNow(id: any) {
+
+  buyNow() {
     this.onGetItem = true;
     this.isLoging = true;
     this.allitems = false;
     this.mobileitems = false;
   }
 
-  getMobileItems() {
-    this.allitems = false;
-    this.mobileitems = true;
-    this.service.getMainProducts().subscribe((response) => {
-      this.mobile = response.allProducts;
-    });
-  }
-
   goBack() {
     this.allitems = true;
     this.mobileitems = false;
+    this.isSearching = false;
     this.buttons = [];
   }
+
+   
+
   onBuy() {
     this.showSearch = false;
     this.isSignup = true;
@@ -149,69 +157,67 @@ export class MainHomeComponent implements OnInit {
     this.router.navigate(['add-cart']);
   }
 
-  getMobiles() {
-    this.service.getSock().subscribe((response) => {
-      this.mobileStock = response.stock;
-    });
-  }
-
   getSearch(value: any) {
-    console.log(value);
-
-    this.isSearching = true;
-    this.limit = 10;
     this.searchText = value;
-    this.buttons = [];
-    console.log(value);
-    this.onGetSelected();
+    this.getItemsList();
+    console.log(this.searchText);
   }
 
   onGetButtonId(event: any) {
     this.buttons = [];
     this.currentPage = event;
-    this.onGetSelected();
+    this.getItemsList();
   }
 
   onSelected(value: any) {
     this.limit = 3;
-    this.buttons = [];
     this.value = value;
-    this.onGetSelected();
+    this.getItemsList();
   }
 
   onColorSelected(color: any) {
     this.limit = 3;
-    this.buttons = [];
     this.color = color;
-    this.onGetSelected();
-  }
-  onamountSelected(price: any) {
-    this.limit = 3;
-    this.buttons = [];
-    this.price = price;
-    this.onGetSelected();
+    this.getItemsList();
   }
 
-  onGetSelected() {
+  onAmountSelected(price: any) {
+    this.limit = 3;
+    this.price = price;
+    this.getItemsList();
+  }
+
+  getTvItems() {
+    this.searchText = 'tv';
+    this.getItemsList();
+  }
+
+  getMobileItems() {
+    this.searchText = 'mobile';
+    this.getItemsList();
+  }
+
+  getItemsList() {
+    this.isSearching = true;
     let page = {
       page: this.currentPage,
       limit: this.limit,
       brand: this.value,
       color: this.color,
-      peice: this.price,
+      price: this.price,
       search: this.searchText,
     };
-    this.mobile = [];
-    this.service.getMobileList(page).subscribe((response) => {
+
+    this.service.getItemsList(page).subscribe((response) => {
+      this.searchText= null
+      this.getData = [];
+      this.buttons = [];
       this.allitems = false;
       this.mobileitems = true;
-      this.mobile = response.allData;
-      this.i = Math.ceil(response.count / this.limit);
-      console.log(response.count);
-      for (let i = 1; i <= this.i; i++) {
-        this.buttons.push({
-          id: i,
-        });
+      this.getData = response.allData;
+      this.buttonsNumber = Math.ceil(response.count / this.limit);
+      for (let i = 1; i <= this.buttonsNumber; i++) {
+        this.buttons.push({id: i})
       }
     });
   }

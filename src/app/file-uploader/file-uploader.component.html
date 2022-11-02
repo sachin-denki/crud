@@ -1,6 +1,15 @@
+<!-- <div class="avatar">
+  <img class="avatar-img" src="/assets/img/avatars/1.jpg" alt="user@email.com">
+</div>
+<div class="avatar">
+  <img class="avatar-img" src="/assets/img/avatars/2.jpg" alt="user@email.com">
+</div>
+<div class="avatar">
+  <img class="avatar-img" src="/assets/img/avatars/3.jpg" alt="user@email.com">
+</div>
 <form (submit)="onSignup(SignupForm)" #SignupForm="ngForm">
   <mat-form-field appearance="outline">
-    <mat-label>Password</mat-label>
+    <mat-label>File name</mat-label>
     <input
       type="text"
       name="name"
@@ -8,7 +17,6 @@
       matInput
       placeholder="name"
       #nameInput="ngModel"
-      required
     /> </mat-form-field
   ><br />
   <input
@@ -18,5 +26,76 @@
     (change)="onFileChanged($event)"
   />
   <br />
-  <button mat-raised-button color="warn" type="submit">REGISTER</button>
+  <br>
+  <button mat-raised-button color="warn" type="submit">UPLOAD</button>
 </form>
+
+
+
+<body id="data" style= "width: 100%; height: 100vh;"  *ngIf="isAdmin">
+    <div id="userList">
+  <h1>REGISTERED USERS LIST</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of users">
+      <th scope="row">{{item.id}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.mobile}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  <div style="margin:10px">
+    <div class="card" style="width: 100%;">
+      <h6 class="main"><u>LIST OF ORDERS</u> </h6>
+      <table class="table table-hover" >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th >Order-ID</th>
+            <th>USER-ID</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>P-ID</th>
+            <th>P-Name</th>
+            <th>QTY</th>
+            <th scope="col">TOTAL</th>
+            <th scope="col">DATE</th>
+            <th scope="col">STATUS</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of allUserDetails">
+          <tr>
+            <th class="counterCell"></th>
+            <th>{{item.orderNumber}}</th>
+            <th>{{item.id}}</th>
+            <th>{{item.name | uppercase}}</th>
+            <th>{{item.mobile}}</th>
+            <th>{{item.email}}</th>
+            <th>{{item.productId}}</th>
+            <th>{{item.productName | uppercase}}</th>
+            <td>{{item.quantity}}</td>
+            <td>{{ item.price | currency: "INR" }}</td>
+            <td>{{ item.createdAt | date: "medium" }}</td>
+            <td><b>{{ item.status | uppercase }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <h6 *ngIf="!isAdmin" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+        DETAILS: <u>ODERS WILL BE DELEVIRED WITHN <b>7 WORKING </b> DAYS</u>
+      </h6>
+    </div>
+  </div>
+
+</body> -->

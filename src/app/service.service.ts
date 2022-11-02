@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { Subject } from 'rxjs';
+import { MainHomeComponent } from './main-home/main-home.component'; 
+import { AddCartComponent } from './add-cart/add-cart.component'; 
 @Injectable({
   providedIn: 'root',
 })
@@ -9,110 +11,42 @@ export class ServiceService {
   url = 'http://localhost:3000';
   public cartData: any = [];
   public auth = false;
+  public userData: any;
+  headerClicked = new Subject<MainHomeComponent>();
+  plusClicked = new Subject<AddCartComponent>();
   constructor(private http: HttpClient, private router: Router) {}
 
-  getHeader(): HttpHeaders {
-    let headers = new HttpHeaders({
-      token: localStorage.getItem('token') || '',
-    });
-    return headers;
-  }
+  getHeader(): HttpHeaders { let headers = new HttpHeaders({ token: localStorage.getItem('token') || '',}); return headers;}
 
-  signUp(data: any) {
-    return this.http.post<{ token: any }>(`${this.url}/signup`, data);
-  }
+  createProductList(data: any){ return this.http.post(`${this.url}/porduct-list`, data) }
 
-  login(data: any) {
-    return this.http.post<{ token: any }>(`${this.url}/login`, data);
-  }
+  signUp(data: any){ return this.http.post<{ token: any }>(`${this.url}/signup`, data) }
 
-  addToCart(data: any) {
-    return this.http.post<{ createdData: any }>(
-      `${this.url}/add-to-cart`,
-      data,
-      { headers: this.getHeader() }
-    );
-  }
+  login(data: any) { return this.http.post<{ token: any; user:any;isAdmin:any }>(`${this.url}/login`, data) }
 
-  removeCartItem(data: any) {
-    return this.http.post<{ createdData: any }>(
-      `${this.url}/remove-cart-item`,
-      data,
-      { headers: this.getHeader() }
-    );
-  }
+  getUserDetails(){ return this.http.get<{ userData: any; }>(`${this.url}/user-details`,{ headers: this.getHeader() }) }
 
-  getCartItems() {
-    return this.http.get<{ cartData: any; count: number; seerchData: any }>(
-      `${this.url}/get-cart-items`,
-      { headers: this.getHeader() }
-    );
-  }
-  getAll() {
-    return this.http.get<{ allData: any; count: number; seerchData: any }>(
-      `${this.url}/get-cart-items`,
-      { headers: this.getHeader() }
-    );
-  }
-  getSock() {
-    return this.http.get<{ stock: any }>(`${this.url}/get-stock-data`);
-  }
+  getItemsList(data: any) { return this.http.post<{allData: any;count: number;}>(`${this.url}/get-list-data`, data);}
+  
+  addToCart(data: any) {return this.http.post<{ quantity: any }>( `${this.url}/add-to-cart`,data,{ headers: this.getHeader() }) }
 
-  getMobileList(data: any) {
-    console.log(data);
-    return this.http.post<{
-      allData: any;
-      count: number;
-    }>(`${this.url}/get-list-data`, data);
-  }
+  getCartItems() { return this.http.get<{ cartData: any; count: number; seerchData: any }>(`${this.url}/get-cart-items`,{ headers: this.getHeader() });}
+  
+  removeCartItem(data: any) { return this.http.post<{ createdData: any }>(`${this.url}/remove-cart-item`,data,{ headers: this.getHeader() }) }
 
-  getOderData(data: any) {
-    console.log(data);
-    return this.http.post<{
-      singleData: any;
-    }>(`${this.url}/get-order-data`, data, {
-      headers: this.getHeader(),
-    });
-  }
+  orderConfirm() { return this.http.get(`${this.url}/order-confirm`, { headers: this.getHeader(), });}
+ 
+  getOrders() { return this.http.get<{ admin(admin: any): unknown; orderData: any; cartData:any ;users:any;allData:any;usersList:any;totalOrders:any}>(`${this.url}/get-orders`,{ headers: this.getHeader(), }); }
 
-  updateData(id: any, data: any) {
-    console.log('UPDATAED', data);
-    return this.http.post(`${this.url}/update-single-data/${id}`, data);
-  }
-
-  deleteData(id: any) {
-    return this.http.delete(`${this.url}/delete-data/${id}`);
-  }
-
-  getMainProducts() {
-    return this.http.get<{ allProducts: any }>(`${this.url}/get-list-data`);
-  }
-
-  createProductList(data: any) {
-    return this.http.post(`${this.url}/porduct-list`, data);
-  }
-  orderConfirm() {
-    return this.http.get(`${this.url}/order-confirm`, {
-      headers: this.getHeader(),
-    });
-  }
-  adminApi(data:any){
-     return this.http.post<{responseData:any,alldata:any}>(`${this.url}/admin-dashboard`,data, {
-      headers: this.getHeader(),
-    });
-  }
-  getOrders() {
-    return this.http.get<{ orderData: any }>(`${this.url}/get-orders`, {
-      headers: this.getHeader(),
-    });
-  }
+  adminApi(data:any) { return this.http.post<{responseData:any;alldata:any}>(`${this.url}/admin-dashboard`,data , { headers: this.getHeader() }); }
+  
   saveAuthManager(token: string) {
-    this.auth = true;
-    localStorage.setItem('token', token);
+    this.auth = true; 
+    localStorage.setItem('token', token)
   }
+  
   clearAuthData() {
-    this.auth = false;
-    localStorage.removeItem('token');
+    this.auth = false;localStorage.removeItem('token');
     this.router.navigate(['/']);
   }
 }

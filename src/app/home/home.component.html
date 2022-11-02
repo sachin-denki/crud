@@ -1,4 +1,4 @@
-<mat-card class="form">
+<!-- <mat-card class="form">
   <form (submit)="onAddData(formDetails)" #formDetails="ngForm">
     <mat-form-field appearance="outline">
       <mat-label>NAME</mat-label>
@@ -35,18 +35,18 @@
 </mat-card>
 
 <mat-card *ngIf="!editMode">
-  <div class="main">
+  <div class="main"> -->
     <!-- DROP DOWN SELECT CODE -->
-    <select class="form-select" #teams (change)="onSelected(teams.value)">
+    <!-- <select class="form-select" #teams (change)="onSelected(teams.value)">
       <option selected>SELECT</option>
       <option value="5">5</option>
       <option value="10">10</option>
       <option value="15">15</option>
       <option value="20">20</option>
-    </select>
+    </select> -->
 
     <!-- SEARCH CODE -->
-    <div class="search">
+    <!-- <div class="search">
       <input
         type="text"
         [(ngModel)]="searchText"
@@ -95,10 +95,10 @@
         </th>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <!-- // PEGINATION CODE -->
-  <div class="bbb" *ngFor="let button of buttons">
+  <!-- <div class="bbb" *ngFor="let button of buttons">
     <button
       type="submit"
       class="btn btn-light"
@@ -107,4 +107,4 @@
       {{ button?.id }}
     </button>
   </div>
-</mat-card>
+</mat-card> -->
