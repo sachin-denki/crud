@@ -1,8 +1,8 @@
 <div
   style="overflow: hidden"
   class="container-fluid mt-100"
-  *ngIf="mobile?.length <= 0"
-  style="background-color: #eee; padding-top: 200px"
+  *ngIf="cartData?.length <= 0"
+  style="background-color: #dadad8; padding-top: 200px"
 >
   <div class="col-sm-12 empty-cart-cls text-center">
     <img
@@ -17,7 +17,7 @@
   </div>
 </div>
 <body *ngIf="isShow">
-  <div id="card" class="card" *ngFor="let item of mobile">
+  <div id="card" class="card" *ngFor="let item of cartData">
     <div class="sub-card">
       <img
         src="https://images.unsplash.com/photo-1580910051074-3eb694886505?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
@@ -30,14 +30,14 @@
         mat-fab
         color="primary"
         aria-label="Example icon button with a delete icon"
-        (click)="deleteFromCrat(item)"
+        (click)="deleteFromCrat(item.productId)"
       >
         <mat-icon>delete</mat-icon></button
       ><button
         mat-mini-fab
         color="accent"
         aria-label="Example icon button with a plus one icon"
-        (click)="plusItem(item)"
+        (click)="plusItem(item.productId)"
       >
         <mat-icon>plus_one</mat-icon>
       </button>
@@ -52,12 +52,9 @@
     </div>
   </div>
   <br />
-  <!-- <h1>TOTAL:{{ total | currency: "INR" }}</h1>
-  br
- -->
   <br />
   <button
-    *ngIf="mobile?.length > 0"
+    *ngIf="cartData?.length > 0"
     id="button"
     mat-raised-button
     color="primary"
@@ -67,7 +64,7 @@
   </button>
 </body>
 
-<div id="tt" style="background-color: #eee" *ngIf="isOrder">
+<div id="tt" style="background-color: #dadad8" *ngIf="isOrder">
   <div class="crad" style="background-color: #fff">
     <h3 style="font-weight: bold; text-align: center"><u>SUMMARY</u></h3>
     <table class="table">
@@ -80,7 +77,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of mobile">
+        <tr *ngFor="let item of cartData">
           <th scope="row">{{ item.id }}</th>
           <td>{{ item.productName | uppercase }}</td>
           <td>{{ item.quantity }}</td>
@@ -89,7 +86,7 @@
       </tbody>
       <h4>TOTAL:{{ total | currency: "INR" }}</h4>
       <button
-        style="margin-bottom: 10px"
+        style="margin-bottom: 10px;"
         type="button"
         class="btn btn-success"
         (click)="confirmOrder()"
@@ -103,9 +100,9 @@
 <div
   class="SUCCESS"
   *ngIf="order"
-  style="background-color: #eee; margin-top: 300px"
+  style="background-color: #dadad8; padding-top: 300px;  color: #9ABC66;"
 >
   <h1>YOUR ORDER PLACED SUCCESSFULLY</h1>
   <br />
-  <i class="fa-10x fa-solid fa-circle-check"></i>
+  <i class="fa-10x fa-solid fa-circle-check"></i><br>
 </div>
