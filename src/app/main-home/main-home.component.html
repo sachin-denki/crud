@@ -179,8 +179,20 @@
       <option value="10000">10000</option>
     </select>
   </div>
-
+<!-- 
+  <a
+  class="view-btn-attach"
+  [href]="
+    sanitize(
+      $event='https://pngroyale.com/wp-content/uploads/2022/03/Black-Angel-Wings-PNG-Free-Download-png.png'
+    )
+  "
+  target="_blank"
+  >View</a
+> -->
+  
   <div class="container" *ngIf="allitems">
+    
     <div id="cc" class="card" style="width: 18rem">
       <img
         src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
@@ -233,7 +245,13 @@
 
   <div *ngIf="mobileitems" id="mobilecard">
     <div class="card" style="width: 18rem" *ngFor="let item of getData">
-      <img src="../../assets/images/{{ item.image }}" alt="..." />
+      
+  <a
+  class="view-btn-attach"
+  [href]="sanitize(item.image)"
+  target="_blank"
+ 
+  ><img (click)="downloadImage(item.image)" src="../../assets/images/{{item.image}}" alt="..." /></a>
       <div id="cartitmes" class="card-body">
         <h2 class="card-title">{{ item.name | uppercase}}</h2>
         <h6>{{ item.color }}</h6>

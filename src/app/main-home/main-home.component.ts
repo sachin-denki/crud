@@ -2,7 +2,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServiceService } from '../service.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { Observable, Observer } from 'rxjs';
 @Component({
   selector: 'app-main-home',
   templateUrl: './main-home.component.html',
@@ -34,11 +35,17 @@ export class MainHomeComponent implements OnInit {
   autheticated!: boolean;
   isShow = false;
   showDrop!: boolean;
-  constructor(private service: ServiceService, public router: Router) {}
+  blob:any;
+  url:any;
+  sanitizedUrl:any;
+  data:any;
+  base64Image:any;
+  constructor(private service: ServiceService, public router: Router,public sanitizer:DomSanitizer) {}
 
   ngOnInit(): void {
     this.autheticated = this.service.auth;
     console.log(this.autheticated);
+    
   }
 
   onFileChanged(event: any) {
@@ -197,7 +204,64 @@ export class MainHomeComponent implements OnInit {
     this.getItemsList();
   }
 
+  sanitize(url:any) {
+    console.log(url);
+    // this.data = url;
+    this.data = `../../assets/images/${url}`
+    return this.sanitizer.bypassSecurityTrustUrl(this.data);
+  }
+  
+  downloadImage(url:any) {
+    this.data = `../../assets/images/${url}`
+    let imageUrl = this.data
+    this.getBase64ImageFromURL(imageUrl).subscribe((base64data: string) => {
+      console.log(base64data);
+      this.base64Image = "data:image/jpg;base64," + base64data;
+      // save image to disk
+      var link = document.createElement("a");
+      document.body.appendChild(link); // for Firefox
+      link.setAttribute("href", this.base64Image);
+      link.setAttribute("download", url);
+      link.click();
+    });
+  }
+
+   getBase64ImageFromURL(url: string) {
+    return Observable.create((observer: Observer<string>) => {
+      const img: HTMLImageElement = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = url;
+      if (!img.complete) {
+        img.onload = () => {
+          observer.next(this.getBase64Image(img));
+          observer.complete();
+        };
+        img.onerror = err => {
+          observer.error(err);
+        };
+      } else {
+        observer.next(this.getBase64Image(img));
+        observer.complete();
+      }
+    });
+  }
+
+  getBase64Image(img: HTMLImageElement) {
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx: CanvasRenderingContext2D | any = canvas.getContext("2d"); 
+    ctx.drawImage(img, 0, 0);
+    const dataURL: string = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+
+
   getItemsList() {
+    // this.sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl(window.location.protocol + '//' + window.location.host + this.file);
+    // this.blob = new Blob(this.file, { type: 'jpg' });
+    // this.url = window.URL.createObjectURL(this.blob);
+
     this.isSearching = true;
     let page = {
       page: this.currentPage,
